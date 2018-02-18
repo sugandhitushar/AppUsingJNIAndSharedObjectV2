@@ -1,0 +1,31 @@
+ Reference - http://stuf.ro/calling-c-code-from-java-using-jni 
+ 
+/* App.java */
+
+/*	
+	Execution steps -
+	Step 1: Compile this java program using below command (Ignore the warnings for now. Check if output file is produced)
+		javac App.java
+	
+	Step 2: Generate Header file using below command
+		javah App
+		
+	Step 3: Compile calcLogic.c which is the pure C library using below command -
+		gcc -shared -o calcLogic.so calcLogic.c -fPIC
+	
+	Step 3: 
+		a. Use the function signature from the header file and write C library. 
+		b. If you are using the current calc.c file then replace dlopen in calc.c and provide the absolute path of your .so file written in pure C.
+		Ex - Ex - p = dlopen("/root/SYMCA/JNI/Shopping_app/Shopping_app_v2/calcLogic.so", RTLD_LAZY);
+		
+		c. Compile C library using below command. For locating jni.h use command : (locate jni.h) 
+		gcc -o libcalc.so -shared -I</path/where/jni.h/is/located>  calc.c -lc -fPIC
+		
+		Example - gcc -o libcalc.so -shared -I/usr/java/jdk1.8.0_144/include/ -I/usr/java/jdk1.8.0_144/include/linux calc.c -lc -fPIC
+		
+		
+	Step 4: Execute java program using below command
+		java -Djava.library.path=</path/of/.so/file/used/by/Java> App
+		
+		Example - java -Djava.library.path=/root/SYMCA/JNI/Shopping_app App
+*/
