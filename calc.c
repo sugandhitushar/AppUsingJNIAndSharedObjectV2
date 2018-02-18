@@ -16,7 +16,7 @@ JNIEXPORT jint JNICALL Java_App_calcBill(JNIEnv *env, jclass jobj, jintArray arr
 	p = dlopen("/root/SYMCA/JNI/Shopping_app/Shopping_app_v2/calcLogic.so", RTLD_LAZY);
 	if(!p)
     {
-            printf("Unable to load library: %s\n",dlerror());
+	    printf("Unable to load library: %s\n",dlerror());
     }
 
 	
@@ -31,6 +31,8 @@ JNIEXPORT jint JNICALL Java_App_calcBill(JNIEnv *env, jclass jobj, jintArray arr
     sum = countTotal(params, len);
 	
 	(*env)->ReleaseIntArrayElements(env, arr, params, 0);
+	
+	dlclose(p);
 	
 	return sum;
 }
